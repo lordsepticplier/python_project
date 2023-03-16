@@ -14,12 +14,12 @@ def sum(list):
     total=0
     for I in list:
         total+=I
-    print(total)
+    return total
 def tim(lister):
     result=1
     for z in lister:
         result*=z
-    print(result)
+    return result
 def charge():   
     first=input("first name ")
     last=input("last name ")   
@@ -31,7 +31,8 @@ def charge():
     name(first,last)
     spam(num,word)
     lists=[100,2,3,4,5]
-    sum(lists)
+    summary=sum(lists)
     lis=[1,2,3,4,5]
-    tim(lis)
+    times=tim(lis)
+    print(summary,"and",times)
 charge()
