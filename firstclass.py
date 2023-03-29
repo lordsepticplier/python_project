@@ -33,7 +33,7 @@ class Ticket:
     def getTstatus(self):
         return self.Tstatus
     def setTstatus(self,Tstatus):
-        #COOOOOOOOOOOOOOODE THE IF STATEMENT HERE PLEASE
+        #CODE THE IF STATEMENT HERE PLEASE
         self.Tstatus=Tstatus
     def changePassword(self):
         if self.desc.lower()=="password change":
