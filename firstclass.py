@@ -1,14 +1,19 @@
-class Ticket:
-    TID=2000
-    Tcreated=0
-    Topen=0
-    Tresolved=0
-    Tresponse="Not Yet Provided"
-    Tstatus="Open"
-    TList=[]
+#naming format T=ticket S=staff 
+#all the functions with get are for getting the variable named after get
+#all the functions with set are for changing the variable named after set
+class Ticket:#this is the class for making and changing the tickets infomation
+    Tnum=2000#this is the static counter that is the same across all tickets created
+    TID=0#this is to store the static counter at each ticket so that there IDs can be found
+    Tcreated=0#counter for tickets created
+    Topen=0#counter for tickets open/unresolved
+    Tresolved=0#counter for tickets resolved
+    Tresponse="Not Yet Provided"#this makes it that all tickets that are made will default as not yet provided
+    Tstatus="Open"#like the one above but defaults them to open
+    Tlist=[]#this is to store the tickets so we can call upon older tickets later
 
     def __init__(self,SID,Tcreator,Email,desc):
-        Ticket.TID+=1
+        Ticket.Tnum+=1
+        self.TID=Ticket.Tnum
         Ticket.Tcreated+=1
         Ticket.Topen+=1
         self.SID=SID
@@ -18,38 +23,39 @@ class Ticket:
         Ticket.Tlist.append(self)
         self.changePassword()
 
-    def getSID(self):
+    def getSID(self):#infomation at line 2
         return self.SID
     
-    def setSID(self,SID):
+    def setSID(self,SID):#infomation at line 3
         self.SID=SID
 
-    def getTcreator(self):
+    def getTcreator(self):#infomation at line 2
         return self.Tcreator
     
-    def setTcreator(self,Tcreator):
+    def setTcreator(self,Tcreator):#infomation at line 3
         self.Tcreator=Tcreator 
 
-    def getEmail(self):
+    def getEmail(self):#infomation at line 2
         return self.Email
     
-    def setEmail(self,Email):
+    def setEmail(self,Email):#infomation at line 3
         self.Email=Email
 
-    def getdesc(self):
+    def getdesc(self):#infomation at line 2
         return self.desc
     
-    def setdesc(self,desc):
+    def setdesc(self,desc):#infomation at line 3
         self.desc=desc 
 
-    def getTresponse(self):
+    def getTresponse(self):#infomation at line 2
         return self.Tresponse
     
     def setTresponse(self,Tresponse):
         self.Tresponse=Tresponse
-        self.resolve()
+        if self.Tstatus.lower()!="closed":
+            self.resolve()
 
-    def getTstatus(self):
+    def getTstatus(self):#infomation at line 2
         return self.Tstatus
     
     def setTstatus(self,Tstatus):
@@ -63,46 +69,110 @@ class Ticket:
         else:
             print("something very wrong is happening here")
 
-    def changePassword(self):
+    def changePassword(self):#will check if the desc is password change and if is will make a new password
         if self.desc.lower()=="password change":
-            password="New password generated: "+self.SID[0:2]+self.Tcreator[0:3]
+            password="New password generated: "+self.SID[0:2]+self.Tcreator[0:3]#makes a new password out of there id and name
             self.setTresponse(password)
-            self.resolve()
 
-    def resolve(self):
+    def resolve(self):#it closes the ticket
         self.setTstatus("Closed")
 
-    def reopen(self):
+    def reopen(self):#it reopens the ticket
         self.setTstatus("Reopened")
 
-    def TStats():
-        stats=f"Tickets Created: {Ticket.Tcreated}/n"
-        stats+=f"Tickets Resolved: {Ticket.Tresolved}/n"
+    def TStats():#the stats of all tickets also formated for display
+        stats=f"Tickets Created: {Ticket.Tcreated}\n"
+        stats+=f"Tickets Resolved: {Ticket.Tresolved}\n"
         stats+=f"Tickets To Solve: {Ticket.Topen}"
         return stats
-    def Tinfo(self):
-        info=f"Ticket Number: {Ticket.TID}/n"
-        info+=f"Ticket Creator: {self.getTcreator()}/n"
-        info+=f"Staff ID: {self.getSID()}/n"
-        info+=f"Email Address: {self.getEmail()}/n"
-        info+=f"Description: {self.getdesc()}/n"
-        info+=f"Response: {self.getTresponse()}/n"
+    
+    def Tinfo(self):#gets all the present ticket stats and formats it for display
+        info=f"Ticket Number: {self.TID}\n"
+        info+=f"Ticket Creator: {self.getTcreator()}\n"
+        info+=f"Staff ID: {self.getSID()}\n"
+        info+=f"Email Address: {self.getEmail()}\n"
+        info+=f"Description: {self.getdesc()}\n"
+        info+=f"Response: {self.getTresponse()}\n"
         info+=f"Ticket Status: {self.getTstatus()}"
         return info
-    def AllTinfo():
-        for ticket in Ticket.Tlist:
-            ATI += f"{Ticket.Tlist[ticket].Tinfo()}/n/n/n"
+    
+    def AllTinfo():#will use Tinfo but on all tickets one by one
+        ATI=""
+        for ticket in range(len(Ticket.Tlist)):
+            ATI += f"{Ticket.Tlist[ticket].Tinfo()}\n\n\n"
         return ATI
-    def Allinfo():
-        everything=f"Displaying Ticket Statistics /n{Ticket.Tstats()}/n/n"
-        everything+=f"Printing Tickets /n{Ticket.AllTinfo()}/n/n"
+    
+    def Allinfo():#will use AllTinfo and Tstats to get all tickets and stats
+        everything=f"Displaying Ticket Statistics \n{Ticket.TStats()}\n\n"
+        everything+=f"Printing Tickets \n{Ticket.AllTinfo()}\n\n"
         return everything
 
         
 
+class Main:
 
-
-
-
-tkt=Ticket()
-#when using the tickets use the list and do list[desired ticket].desiredfunction
+    def __init__(self):        
+        command=0
+        while command !=6:
+            print("\n-----------------------------------------------------------------------------------")
+            print("1:create a ticket")
+            print("2:interact with a specific ticket")
+            print("3:show all tickets")
+            print("4:show all stats")
+            print("5:show all infomation")
+            print("6:end program")
+            command=int(input("your command\n"))
+            if command==1:      
+                ID=input("your ID")
+                name=input("your name")
+                email=input("your email")
+                problem=input("your problem")
+                TT=Ticket(ID,name,email,problem)
+            elif command==2:
+                Tcommand=0
+                while Tcommand!=6:
+                    Tcommand=0
+                    TID=int(input("The ticket's ID"))-2001
+                    if TID>=0 and TID<len(Ticket.Tlist):
+                        while Tcommand !=5 and Tcommand !=6:
+                            print("\n-----------------------------------------------------------------------------------")
+                            print("1:see ticket infomation")
+                            print("2:respond to ticket")
+                            print("3:close ticket")
+                            print("4:reopen ticket")
+                            print("5:change ticket")
+                            print("6:exit ticket menu")
+                            Tcommand=int(input("your command\n"))
+                            if Tcommand==1:
+                                print(Ticket.Tlist[TID].Tinfo())
+                            elif Tcommand==2:
+                                respond=input("The response")
+                                Ticket.Tlist[TID].setTresponse(respond)
+                                print("response updated")
+                            elif Tcommand==3:
+                                if Ticket.Tlist[TID].getTstatus().lower()!="closed":
+                                    Ticket.Tlist[TID].resolve()
+                                print("ticket closed")
+                            elif Tcommand==4:
+                                if Ticket.Tlist[TID].getTstatus().lower()!="reopened":
+                                    Ticket.Tlist[TID].reopen()
+                                print("ticket reopened")
+                            elif Tcommand==5:
+                                print("changing ticket")
+                            elif Tcommand==6:
+                                print("exiting ticket menu")
+                            else:
+                                print("put a vaild command number")
+                    else:
+                        print("give an existing ticket ID please")
+            elif command==3:
+                print(Ticket.AllTinfo())
+            elif command==4:
+                print(Ticket.TStats())
+            elif command==5:
+                print(Ticket.Allinfo())
+            elif command==6:
+                print("thank you for using the ticket system farewell")
+            else:
+                print("put a vaild command number")
+Main()
