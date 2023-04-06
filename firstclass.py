@@ -71,7 +71,7 @@ class Ticket:  # this is the class for making and changing the tickets infomatio
             print("something very wrong is happening here")
 
     def changePassword(self):  # will check if the desc is password change and if is will make a new password
-        if self.desc.lower()=="password change" or self.desc.lower()=="change password":
+        if "password change" in self.desc.lower() or "change password" in self.desc.lower():
             password="New password generated: "+self.SID[0:2]+self.Tcreator[0:3]  # makes a new password out of there id and name
             self.setTresponse(password)
 
@@ -127,13 +127,14 @@ class Main:  # this is the class that is where everything is used
                 ID=input("your ID")
                 name=input("your name")
                 email=input("your email")
+                email=Main.emailvaildation(email)  # to vaildate the email
                 problem=input("your problem")
                 TT=Ticket(ID,name,email,problem)  # used to make tickets with the inputs
-            elif command==2:
+            elif command==2 and len(Ticket.Tlist)>0:  # len(Ticket.Tlist)>0 is to make sure there is a ticket before they try to interate with one
                 Tcommand=0
                 while Tcommand!=6:
                     Tcommand=0
-                    TID=int(input("The ticket's ID"))-2001  # I minus 2001 because that will be the index of the ticket in the list
+                    TID=int("0"+input("The ticket's ID"))-2001  # I minus 2001 because that will be the index of the ticket in the list
                     if TID>=0 and TID<len(Ticket.Tlist):  # confirms that they put a vaild ticket ID
                         while Tcommand !=5 and Tcommand !=6:  # this one has !=5 in it so that they can change the ticket ID if they want
                             print("\n-----------------------------------------------------------------------------------")
@@ -175,7 +176,12 @@ class Main:  # this is the class that is where everything is used
             elif command==6:
                 print("thank you for using the ticket system farewell")
             else:
-                print("put a vaild command number")
+                print("put a vaild command number or if you put 2 make sure that you have made a ticket first")
+    
+    def emailvaildation(email):  # used to vaildate the email by seeing if it has @ and . in it
+        while "@" and "." not in email:
+            email=input("please put a vaild email")
+        return email
 
 
 
