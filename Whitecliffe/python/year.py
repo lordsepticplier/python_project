@@ -1,12 +1,12 @@
 year1 = int(input("year"))
 zodiac = ['dragon','snake','horse','sheep','monkey','rooster','dog','pig','rat','ox','tiger','hare']
-year1 = (year1-2000)%12
+year1 = (year1-2000)%12  # this makes it that year1 will be within the range of the 12 zodiac list
 print(year1,"is the year of the ",zodiac[year1])
 
 
 year = int(input("year"))
 print(year)
-year = (year-2000)%12
+year = (year-2000)%12  # this makes it that year will be within the range of the 12 elif statements
 print(year)
 if year==0:
     print(year,"is the year of the dragon")
@@ -37,7 +37,7 @@ else:
 
 
 mag = float(input("magnitude"))
-#print(mag)
+  # print(mag)  # used when testing to see if the elif activated matches with what should be activated
 if mag<2.0:
     print(mag,"is micro")
 elif mag<3.0:
@@ -61,7 +61,7 @@ else:
 
 
 sou = int(input("sound level"))
-#print(sou)
+  # print(sou)  # used when testing to see if the elif activated matches with what should be activated
 if sou>130:
     print(sou,"is loader then even the mighty jackhammer")
 elif sou==130:
@@ -85,7 +85,7 @@ else:
 
 
 voco = input("letter")
-#print(voco)
+  # print(voco)  # used when testing to see if the elif activated matches with what should be activated
 if voco=="a":
     print(voco,"is vowel")
 elif voco=="e":
@@ -99,4 +99,4 @@ elif voco=="u":
 elif voco=="y":
     print(voco,"is vowel sometimes and other times a consonant")
 else:
-    print(voco,"is a consonant")
+    print(voco,"is a consonant")  # because if it isn't a vowel it's a consonant

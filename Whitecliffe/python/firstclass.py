@@ -1,3 +1,4 @@
+# changed this file's name to ticket system and moved it into anouther folder
 # naming format T=ticket S=staff 
 # all the functions with get are for getting the variable named after get
 # all the functions with set are for changing the variable named after set
