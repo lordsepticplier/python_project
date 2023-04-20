@@ -1,0 +1,3 @@
+when you start the program you will see the main command menu from there it will tell you the options and what numbers to do those options. Put the number to the option you want.
+if you pick option 2 after creating a ticket and put a vaild ticket ID you will get to the ticket menu. just like the main command menu it will tell you the options and what numbers to do them.
+put the number to the option you want, if you want to exit the program in the main ticket menu select 6.

@@ -1,0 +1,3 @@
+there is two classes in this program, class Ticket and class Main
+class Ticket is that class that has the template for the tickets and also is where the stats for all the tickets are created. I made it so most of the functions that are needed happened in the Ticket class.
+class Main is the class where mostly everything is activated. it is also where all the inputs are and mainly so that the program can be actvated from a single line.
